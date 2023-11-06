@@ -1,0 +1,22 @@
+
+version: '3'
+
+services:
+
+
+  web_eau2c2_dash: &eau2c2dash
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8819:8819
+    restart: always
+  
+  jupyter_notebook:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8023:8023
+    restart: always
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8023", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
