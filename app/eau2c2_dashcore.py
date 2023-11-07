@@ -21,8 +21,7 @@ import plotly.express as px
 from layout import *
 import dash_auth
 from users import USERNAME_PASSWORD_PAIRS
-
-data = pd.read_excel('Data.xlsx')
+from Data import *
 
 debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
 
@@ -40,6 +39,8 @@ if (os.environ["DASH_AUTH_MODE"]== "True"):
         app,
         USERNAME_PASSWORD_PAIRS
     )
+
+
 navbar = create_navbar()
 RealtimeData = create_RealtimeData()
 app.layout = html.Div([
@@ -103,4 +104,4 @@ def update_table(n_intervals):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="8819", debug=debug)
+    app.run(host="0.0.0.0", port="8820", debug=debug)

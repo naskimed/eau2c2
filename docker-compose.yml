@@ -9,7 +9,7 @@ services:
       context: ./app
       dockerfile: Dockerfile.dev
     ports:
-      - 8819:8819
+      - 8820:8820
     restart: always
   
   jupyter_notebook:
