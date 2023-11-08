@@ -26,7 +26,7 @@ from Data import *
 debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
 
 
-app = Dash(__name__,url_base_pathname = '/eau2c2_dash/', external_stylesheets=[BOOTSTRAP], prevent_initial_callbacks='initial_duplicate')
+app = Dash(__name__,url_base_pathname = '/eau2c2_dash/', external_stylesheets=[dbc.themes.BOOTSTRAP], prevent_initial_callbacks='initial_duplicate')
 
 # app.css.append_css({
 #     "external_url": "/assets/styles.css" 
@@ -43,6 +43,8 @@ if (os.environ["DASH_AUTH_MODE"]== "True"):
 
 navbar = create_navbar()
 RealtimeData = create_RealtimeData()
+Input_Table = Create_Input_Table()
+
 app.layout = html.Div([
     #For all the pages
     navbar,
@@ -58,7 +60,9 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/realtime':
         return html.Div([
+            html.Div(id='input-table', children=Input_Table),
             html.Div(id='realtime-content', children=RealtimeData),
+            html.Link(rel='stylesheet', href='/assets/styles.css'),
             # Realtime Data page
         ])
     elif pathname == '/predictions':
@@ -85,18 +89,37 @@ def display_page(pathname):
 )
 def update_table(n_intervals):
 
+    columns_to_remove = ['TURBINAGE(Mm3)', 'FUITE(Mm3)','TRANSFERT(Mm3)','TotLach(Mm3)','Apport(Mm3)','Perte(Mm3)']
+    dataX = data.drop(columns=columns_to_remove)
+
     table = dash_table.DataTable(
-        data=data.to_dict('records'),
-        columns=[{'name': col, 'id': col} for col in data.columns],
-        style_table={'height': '300px', 'overflowY': 'auto'},
-        style_header={'backgroundColor': 'rgb(30, 30, 30)'},
-        style_cell={
-            'backgroundColor': 'rgb(50, 50, 50)',
-            'color': 'white'
-        },
+        id='realtime-table',
+        data =dataX.to_dict('records'),
+        columns=[{'name': col, 'id': col} for col in dataX.columns],
+        style_table={'height': '500px', 'overflowY': 'auto'},
     )
 
     return table
+
+# Callback for generating buttons of the stored data
+@app.callback(
+    Output('button-container', 'children'),
+    Input('stored', 'value'),
+    prevent_initial_call=True
+)
+def display_simulation_buttons(stored):
+    # Check if the simulation_results dictionary is available
+    if not True:
+        raise PreventUpdate
+
+    # Get the keys (timestamps) from the simulation_results dictionary
+    keys = list({0:0,1:1,2:2,3:3}.keys())
+
+    # Create a list of buttons based on the keys
+    buttons = [html.Button(key, id={'type': 'simulation-button', 'index': key}, n_clicks=0) for key in keys]
+
+    return buttons
+
 
 
 

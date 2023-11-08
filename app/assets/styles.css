@@ -24,6 +24,7 @@ body {
 }
 
 /* Navigation Link Styles */
+
 .nav-link {
     color: white;
     text-decoration: none;
@@ -39,58 +40,126 @@ body {
 
 /* Realtime Data Table Styles */
 
-.RealtimeTable {
+#realtime-content {
     
     border-collapse: collapse;
+    border-radius: 20px;
     max-width: 1600px;
     margin: 0 auto;
     padding: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
 }
 
-.RealtimeTable th,
-.RealtimeTable td {
+#realtime-content th,
+#realtime-content td {
     padding: 10px;
     border: 1px solid #ccc;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #fff;
+    background-color: #212529;
 }
 
-.RealtimeTable th {
-    background-color: #007BFF;
-    color: white;
+#realtime-content th {
+    background-color: #50b3e0;
+    color: #212529;
     font-weight: bold;
+    border-radius: 5px;
 }
 
-.RealtimeTable tr:nth-child(even) {
-    background-color: #f2f2f2;
+#realtime-content table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 20px;
+
 }
 
-.RealtimeTable tr:nth-child(odd) {
-    background-color: #ffffff;
+#realtime-content tr:nth-child(even) {
+    background-color: #212529;
 }
 
-.RealtimeTable tr:hover {
-    background-color: #d3d3d3;
+#realtime-content tr:nth-child(odd) {
+    background-color: #212529;
 }
 
-.RealtimeTable td {
-    color: #333;
+#realtime-content tr:hover {
+    background-color: #212529;
+}
+
+#realtime-content td {
+    color: #ffffff;
     font-size: 14px;
 }
 
-.RealtimeTable .pagination {
+#realtime-content .pagination {
     margin: 0;
 }
 
-.RealtimeTable .page-current {
+#realtime-content .page-current {
     background-color: #007BFF;
     color: white;
     border: 1px solid #007BFF;
 }
 
-.RealtimeTable .page:hover {
-    background-color: #f2f2f2;
+#realtime-content .page:hover {
+    background-color: #212529;
 }
+
+
+#table-container {
+    background-color: #212529; 
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+/*************************************************************/
+
+/* Style the date picker range input */
+
+#input-table{
+    border-collapse: collapse;
+    border-radius: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+/* Style the dropdown list input */
+.dash-dropdown {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.dash-dropdown__label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.run-button {
+    display: inline-block;
+    background-color: #2e9acc; /* Changed button background color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 15px 30px;
+    font-size: 18px; /* Increased font size for the button text */
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .run-button:hover {
+    background-color: rgb(132, 247, 255); /* Darker shade on hover */
+  }

@@ -19,7 +19,6 @@ column_name_mapping = {col: col.replace(' ', '') for col in data.columns}
 data = data.rename(columns=column_name_mapping)
 
 
-
 # Creating a function to change the data to be suitable for the model
 
 def change_data_format(data):
