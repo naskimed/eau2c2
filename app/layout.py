@@ -1,11 +1,14 @@
 from dash import dcc, html
 import datetime as dt
 import dash_bootstrap_components as dbc
+from PIL import Image
 
 
 def create_navbar():
 
     PLOTLY_LOGO = "https://images.plot.ly/logo/new-branding/plotly-logomark.png"
+    eau2c2_img = Image.open("assets/images/o2c2.png")
+
     
     search_bar = dbc.Row(
         [
@@ -27,13 +30,12 @@ def create_navbar():
                 html.A(
                     dbc.Row(
                         [
-                            dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px")),
-                            dbc.Col(dbc.NavbarBrand("EAU2C2 Dashboard", className="ms-2")),
+                            dbc.Col(html.Img(src=eau2c2_img, height="30px")),
+                            dbc.Col(dbc.NavbarBrand("Dashboard", className="ms-2")),
                         ],
                         align="center",
                         className="g-0",
                     ),
-                    href="https://plotly.com",
                     style={"textDecoration": "none"},
                 ),
                 dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
@@ -73,11 +75,24 @@ def create_RealtimeData():
 
 
 def Create_Input_Table():
-    input_table = html.Div(children=[
-    html.H1('Analyzing the Data'),
 
-    html.Div(className="input-section", children=[
+    pil_img = Image.open("assets/images/LogoDashboard.png")
 
+    input_table = html.Div(className="input-section", children=[
+
+    html.Div(className="behavior-section2", children=[
+    html.Img(src=pil_img, style={'width': '50%', 'marginLeft': -25, 'marginBottom': 20,}),
+
+    html.Div(className="description-text", children=[
+    html.P("""The Eau2C2 dashboard stands as an innovative and indispensable tool for comprehensively monitoring and analyzing water resources in Tunisia and Canada."""),
+    html.P("""At its core, the dashboard harnesses the power of IoT sensors, ensuring that the data presented is not only up-to-date but also derived from a network of intelligent sensors strategically placed to capture diverse facets of water resources. This dynamic integration of real-time data provides users with a holistic view of the current state of water sources."""),
+    html.P("""What sets Eau2C2 apart is its utilization of advanced machine learning models, which elevate the platform beyond mere data visualization. These models delve into the intricate patterns and trends within the data, enabling the generation of accurate predictions about future water resource dynamics."""),
+    html.P("""Moreover, the dashboard empowers users to formulate informed recommendations, supported by the analytical prowess of these machine learning algorithms. Whether it's analyzing trends, predicting future scenarios, or making strategic decisions for water resource management, Eau2C2 emerges as a cutting-edge solution."""),
+    ]),
+    ]),
+
+    html.Div(className="behavior-section1", children=[
+        html.H1('Analyzing the Data'),
         html.Div(
             className="date-section",
             children=[
@@ -89,7 +104,7 @@ def Create_Input_Table():
                         id='start-date',
                         min_date_allowed=dt.datetime(1999, 1, 1),
                         max_date_allowed=dt.datetime.today() + dt.timedelta(days=7),
-                        style={'marginBottom': 10, 'marginTop': 10, 'marginRight': 10, 'marginLeft': 10,'width': 200, 'border': '1px solid #ccc','borderRadius': 4, 'padding': '8px 8px','backgroundColor': '#fff', 'textAlign': 'center' },
+                        style={'marginBottom': 10, 'marginTop': 10, 'marginRight': 10, 'marginLeft': 10,'width': 200, 'borderRadius': 4, 'padding': '8px 4px','backgroundColor': '#ffffff6b', 'textAlign': 'center' },
                     ),
                 ]),
 
@@ -99,7 +114,7 @@ def Create_Input_Table():
                         id='end-date',
                         min_date_allowed=dt.datetime(1999, 1, 1),
                         max_date_allowed=dt.datetime.today() + dt.timedelta(days=7),
-                        style={'marginBottom': 10, 'marginTop': 10, 'marginRight': 10, 'marginLeft': 41,'width': 200, 'border': '1px solid #ccc','borderRadius': 4, 'padding': '8px 8px','backgroundColor': '#fff', 'textAlign': 'center'},
+                        style={'marginBottom': 10, 'marginTop': 10, 'marginRight': 10, 'marginLeft': 41,'width': 200, 'borderRadius': 4, 'padding': '8px 2px','backgroundColor': '#ffffff6b', 'textAlign': 'center'},
                         
                     ),
                 ]),
@@ -131,9 +146,8 @@ def Create_Input_Table():
             },
             ),
         ]),
-
+    html.Button('Start Analyzing', id='run-button', className='run-button'),
     ]),
-     html.Button('Run Simulation', id='run-button', className='run-button')
     ]),
 
     return input_table
