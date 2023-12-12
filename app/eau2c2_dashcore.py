@@ -44,6 +44,7 @@ if (os.environ["DASH_AUTH_MODE"]== "True"):
 navbar = create_navbar()
 RealtimeData = create_RealtimeData()
 Input_Table = Create_Input_Table()
+PredictionGraph = predictionModel()
 
 app.layout = html.Div([
     #For all the pages
@@ -68,6 +69,7 @@ def display_page(pathname):
     elif pathname == '/predictions':
         return html.Div([
             html.H1('Predictions Page'),
+            html.Div(id='prediction-graph', children=PredictionGraph),
             # Predictions page 
         ])
     elif pathname == '/recommendations':
@@ -120,10 +122,29 @@ def display_simulation_buttons(stored):
 
     return buttons
 
+# data['DATE'] = pd.to_datetime(data['DATE'])
+
+# Create a new variable 'new_date' by adding 24 years to 'DATE'
+data['new_date'] = pd.to_datetime(data['DATE']) + pd.DateOffset(years=24)
 
 
+@app.callback(Output('live-update-graph', 'figure'),
+              [Input('interval-component', 'n_intervals')])
+def update_graph(n):
+    # Update date range based on n_intervals
 
 
+    # Create a figure using Plotly Graph Objects
+    fig = go.Figure()
+
+    # Add trace for the 'EVP(mm)' column
+    fig.add_trace(go.Scatter(x=data['new_date'][0:n], y=data['EVP(mm)'][0:n],
+                             mode='lines', name='EVP(mm)', line=dict(width=3)))
+
+    # Update layout
+    fig.update_layout(title='EVP(mm) Over Time', title_x=0.5, xaxis_title='Timeline (days)', yaxis_title='EVP(mm)')
+
+    return fig
 
 
 if __name__ == "__main__":
